@@ -1,0 +1,30 @@
+.pz-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.pz-card{
+  margin: 10px;
+  width: 250px;
+  max-height: 350px;
+  padding: 10px;
+
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.pz_card__info{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pz_card__action{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}

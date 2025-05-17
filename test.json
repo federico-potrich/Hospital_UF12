@@ -1,0 +1,41 @@
+{
+    "body": "{\n  \"nome\": \"Pietro\",\n  \"cognome\": \"Rocchio\"\n}",
+    "cookies": [],
+    "headers": {
+      "content-length": "46",
+      "accept-encoding": "gzip, deflate, br",
+      "accept": "*/*",
+      "user-agent": "Thunder Client (https://www.thunderclient.com)",
+      "content-type": "application/json",
+      "host": "localhost:3000",
+      "connection": "close"
+    },
+    "isBase64Encoded": false,
+    "pathParameters": {
+      "id": "PR2001"
+    },
+    "queryStringParameters": null,
+    "rawPath": "/trasferisci-pz/PR2001",
+    "rawQueryString": "",
+    "requestContext": {
+      "accountId": "offlineContext_accountId",
+      "apiId": "offlineContext_apiId",
+      "domainName": "offlineContext_domainName",
+      "domainPrefix": "offlineContext_domainPrefix",
+      "http": {
+        "method": "PUT",
+        "path": "/trasferisci-pz/PR2001",
+        "protocol": "HTTP/1.1",
+        "sourceIp": "::1",
+        "userAgent": "Thunder Client (https://www.thunderclient.com)"
+      },
+      "requestId": "offlineContext_resourceId",
+      "routeKey": "PUT /trasferisci-pz/{id}",
+      "stage": "$default",
+      "time": "01/Apr/2025:11:38:44 +0200",
+      "timeEpoch": 1743500324989
+    },
+    "routeKey": "PUT /trasferisci-pz/{id}",
+    "stageVariables": null,
+    "version": "2.0"
+  }

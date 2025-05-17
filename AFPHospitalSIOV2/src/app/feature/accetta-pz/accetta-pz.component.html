@@ -1,0 +1,51 @@
+<div class="form">
+  <label for="nome">Nome</label>
+  <input
+    type="text"
+    id="nome"
+    placeholder="Nome"
+    [(ngModel)]="nome"
+  >
+
+  <label for="cognome">Cognome</label>
+  <input
+    type="text"
+    id="cognome"
+    placeholder="Cognome"
+    [(ngModel)]="cognome"
+  >
+
+  <label for="dataNascita">Data di nascita</label>
+  <input
+    type="date"
+    id="dataNascita"
+    placeholder="Data di nascita"
+    [(ngModel)]="dataNascita"
+  >
+
+  <label for="codiceFiscale">Codice fiscale</label>
+  <input
+    type="text"
+    id="codiceFiscale"
+    placeholder="Codice fiscale"
+    [(ngModel)]="codiceFiscale"
+  >
+  <label for="codiceColore">Codice colore</label>
+  <select
+    id="codiceColore"
+    [(ngModel)]="codiceColore"
+  >
+    <option value="BIANCO">BIANCO</option>
+    <option value="VERDE">VERDE</option>
+    <option value="AZZURRO">AZZURRO</option>
+    <option value="ARANCIONE">ARANCIONE</option>
+    <option value="ROSSO">🔴ROSSO</option>
+  </select>
+
+  <button
+    (click)="accettaPaziente()"
+    [disabled]="!validateInput()"
+  >
+    ACCETTA PAZIENTE
+  </button>
+</div>

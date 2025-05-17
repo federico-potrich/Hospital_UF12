@@ -1,0 +1,56 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: preparedmoose
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: AFPHospitalAPI
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iam:
+    role: ${file(./credentials.yml):IAM.role}
+  environment:
+    db_host: ${file(./credentials.yml):ENV.db_host}
+    user: ${file(./credentials.yml):ENV.user}
+    password: ${file(./credentials.yml):ENV.password}
+    database: ${file(./credentials.yml):ENV.database}
+    port: ${file(./credentials.yml):ENV.port}
+
+functions: # AWS LAMBDA functions
+  hello: # NOME
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  lista-pz:
+    handler: pazienti.listaPz
+    events:
+      - httpApi:
+          path: /lista-pz
+          method: get
+
+  accetta-pz:
+    handler: pazienti.accettaPz
+    events:
+      - httpApi:
+          path: /accetta-pz
+          method: post
+
+  ## CODICE PZ
+  trasferisci-pz:
+    handler: pazienti.trasferisciPz
+    events:
+      - httpApi: 
+          path: /trasferisci-pz/{id}
+          method: put
+  
+  dimetti-pz: 
+    handler: pazienti.dimettiPz
+    events:
+      - httpApi:
+          path: /dimetti-pz/{id}
+          method: delete
+
+plugins:
+  - serverless-offline

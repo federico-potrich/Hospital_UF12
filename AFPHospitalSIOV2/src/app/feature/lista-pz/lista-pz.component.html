@@ -1,0 +1,33 @@
+<p>lista-pz works!</p>
+
+<!-- TODO: Impelementare chiamata per recuperare i pz -->
+
+<button (click)="api.getListaPazienti()">GETE PZ</button>
+<button routerLink="/accetta-pz">ACCETTA PZ</button>
+<!--<div>{{api.listaPz() | json}}</div>-->
+
+<div class="pz-list">
+  @for (pz of api.listaPz(); track pz.id_paziente){
+
+    <div class="pz-card">
+      <h3>{{pz.cognome}} {{pz.nome}}</h3>
+      <p>Codice PZ: {{pz.codice}}</p>
+      <p>Data di nascita: {{pz.data_nascita | date:'dd/MM/YYYY'}}</p>
+      <p>Codice fiscale: {{pz.codice_fiscale}}</p>
+      <div class="pz_card__info">
+        <p>{{pz.codice_colore}}</p>
+        <p>{{pz.stato}}</p>
+      </div>
+      <div class="pz_card__action">
+        <button (click)="api.traferisciPaziente(pz.id_paziente)">
+          TRASFERISCI
+        </button>
+        <button (click)="api.dimettiPaziente(pz.id_paziente)">
+          DIMETTI
+        </button>
+      </div>
+    </div>
+  } @empty {
+    <h3>NON CI SONO PAZIENTI</h3>
+  }
+</div>
