@@ -7,7 +7,7 @@ import { AFPHospitalAPIService } from './core/services/afphospital-api.service';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import { APSS_theme } from '../theme/APSS_theme';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
         provideAnimationsAsync(),
         providePrimeNG({
             theme: {
-                preset: Aura
+                preset: APSS_theme
             }
         })
     ]

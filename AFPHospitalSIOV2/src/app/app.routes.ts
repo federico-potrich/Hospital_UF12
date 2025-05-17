@@ -14,8 +14,14 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    loadComponent: () => import('./feature/login/login.component')
+      .then(m => m.LoginComponent),
+    pathMatch: 'full'
+  },
+  {
     path: '',
-    redirectTo: 'lista-pz',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

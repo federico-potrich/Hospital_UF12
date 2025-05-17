@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="outer">
+  <div class="box">
+  </div>
+</div>
+
+<div class="container">
+  <div class="form">
+    <h1>Login</h1>
+    <div class="content">
+      <p-inputgroup>
+        <input pInputText class="p-inputtext" [(ngModel)]="credentials.username" placeholder="Email" />
+        <p-inputgroup-addon>
+          <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
+      </p-inputgroup>
+      <div class="card flex justify-center">
+        <p-password placeholder="Password" [(ngModel)]="credentials.password" [toggleMask]="true" [feedback]="false" />
+      </div>
+    </div>
+    <button class="btn">Login</button>
+
+    <div class="or">
+      <span class="line"></span>
+      <p>OR</p>
+      <span class="line"></span>
+    </div>
+    <button class="btn">Utilizza Google</button>
+
+  </div>
+</div>
