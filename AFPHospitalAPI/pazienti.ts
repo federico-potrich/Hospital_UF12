@@ -6,11 +6,11 @@ import { createHttpResponceKO, createHttpResponceOK } from './ResponceManager';
 
 // npm i -D @types/node
 const dbConfig = {
-    host: process.env.db_host,
-    user: process.env.user,       // Cambia se necessario
-    password: process.env.password,       // Cambia se necessario
-    database: process.env.database,
-    port: process.env.port,
+    host: "localhost",
+    user: "root",       // Cambia se necessario
+    password: "root",       // Cambia se necessario
+    database: "ospedale",
+    port: 3306,
 };
 
 export const listaPz = async () => {

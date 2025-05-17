@@ -1,19 +1,19 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: preparedmoose
+org: potciko
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: AFPHospitalAPI
 
 provider:
   name: aws
   runtime: nodejs20.x
-  iam:
-    role: ${file(./credentials.yml):IAM.role}
-  environment:
-    db_host: ${file(./credentials.yml):ENV.db_host}
-    user: ${file(./credentials.yml):ENV.user}
-    password: ${file(./credentials.yml):ENV.password}
-    database: ${file(./credentials.yml):ENV.database}
-    port: ${file(./credentials.yml):ENV.port}
+  # iam:
+  #   role: ${file(./credentials.yml):IAM.role}
+  # environment:
+  #   db_host: ${file(./credentials.yml):ENV.db_host}
+  #   user: ${file(./credentials.yml):ENV.user}
+  #   password: ${file(./credentials.yml):ENV.password}
+  #   database: ${file(./credentials.yml):ENV.database}
+  #   port: ${file(./credentials.yml):ENV.port}
 
 functions: # AWS LAMBDA functions
   hello: # NOME
