@@ -4,24 +4,13 @@
 
     .box {
         height: 100vh;
-        clip-path: polygon(0% 0%,
-                0% 100%,
-                5% 100%,
-                5% 10%,
-                95% 10%,
-                95% 90%,
-                5% 90%,
-                5% 100%,
-                100% 100%,
-                100% 0%,
-
-            );
-        background-color: #232730;
+        z-index: 100;
     }
-
+    z-index: -1;
 }
 
 .container {
+    border: 100px solid #232730;
     height: 100vh;
     width: 100vw;
     // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100);
@@ -32,7 +21,7 @@
     align-items: flex-start;
     top: 0;
     padding-left: 250px;
-
+    z-index: 1;
 
     .form {
         position: relative;
@@ -51,7 +40,7 @@
 
 
         .content {
-            width: 250px;
+            width: 275px;
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -75,6 +64,32 @@
             font-size: 1rem;
             border: 1px solid #2327303d;
             border-radius: 10px;
+            cursor: pointer;
+        }
+        button.btn:nth-of-type(1) {
+            background-color: #2DA9B5;
+            border: none;
+            color: white;
+            font-weight: bolder;
+            letter-spacing: 1.2px;
+            transition: .7s ease;
+        }
+        button.btn:nth-of-type(1):hover{
+          background-color: #207e86;
+        }
+        button.btn:nth-of-type(2) {
+            border: none;
+            background-color: #f1f1f1;
+            color: rgba(0, 0, 0, 0.637);
+            font-weight: bolder;
+            letter-spacing: 1.2px;
+            transition: .7s ease;
+        }
+        button.btn:nth-of-type(2):hover{
+            background-color: #dadada;
+        }
+        ::ng-deep p-password input {
+            background-color: transparent !important;
         }
 
 
@@ -102,4 +117,39 @@
             color: black;
         }
     }
+}
+.bigBall{
+    width: 200%;
+    height: 1700px;
+    // background-color: #232730;
+    background: radial-gradient(#b8c6c64f 0%,#30b2d362 60%,#b8c6c6 100%);
+    border-radius: 100%;
+    position: absolute;
+    top: 65%;
+    left: -50%;
+    z-index: 0;
+}
+.bubble{
+    position: absolute;
+    width: 175px;
+    height: 175px;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(#b8c6c64f 0%,#30b2d362 60%,#b8c6c6 100%);
+    border-radius: 100%;
+    padding: 10px;
+    transform: translateX(250px) translateY(-250px) rotate(-40deg);
+    svg{
+        font-size: 5rem;
+    }
+}
+.bubble:nth-child(1){
+    transform: translateX(-1100px) translateY(50px) rotate(40deg) scale(.75);
+}
+.bubble:nth-child(3){
+    transform: translateX(-950px) translateY(-50px) rotate(40deg) scale(.55);
+    z-index: 0;
 }
