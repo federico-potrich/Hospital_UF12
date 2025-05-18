@@ -15,7 +15,7 @@
       </p-inputgroup>
       <p-password placeholder="Password" [(ngModel)]="credentials.password" [toggleMask]="true" [feedback]="false" />
     </div>
-    <button class="btn">Login</button>
+    <button class="btn" (click)="login()">Login</button>
 
     <div class="or">
       <span class="line"></span>

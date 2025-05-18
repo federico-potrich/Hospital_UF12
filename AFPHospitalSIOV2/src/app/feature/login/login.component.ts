@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -11,6 +11,8 @@ import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 gsap.registerPlugin(DrawSVGPlugin);
 
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../../core/services/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +21,23 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements AfterViewInit{
+
+  #service = inject(LoginService)
+
   credentials: any = {
     username: "",
     password: ""
   }
   constructor() {
-
+    if(this.#service.logged()){
+      inject(Router).navigate([''])
+    }
   }
+
+  login(){
+    this.#service.login(this.credentials.username, this.credentials.password)
+  }
+
   ngAfterViewInit(): void {
 
     //animazioni delle bolle
