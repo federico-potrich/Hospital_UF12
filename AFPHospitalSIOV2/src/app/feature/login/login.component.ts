@@ -27,6 +27,20 @@ export class LoginComponent implements AfterViewInit{
 
   }
   ngAfterViewInit(): void {
+    const bubbles = document.querySelectorAll('.bubble');
+
+    bubbles.forEach((bubble, i) => {
+      gsap.to(bubble, {
+        duration: 3 + Math.random() * 2, // tra 3 e 5 secondi
+        x: '+=20',
+        y: '+=15',
+        rotation: '+=10',
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: Math.random() * 2, // per desincronizzarle
+      });
+    });
     gsap.from(".draw-me", {
       duration: 10,
       drawSVG: 0,
