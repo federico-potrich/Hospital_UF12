@@ -1,14 +1,17 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'lista-pz',
+    canActivate:[AuthGuard],
     loadComponent: () => import('./feature/lista-pz/lista-pz.component')
       .then(m => m.ListaPzComponent),
     pathMatch: 'full'
   },
   {
     path: 'accetta-pz',
+    canActivate:[AuthGuard],
     loadComponent: () => import('./feature/accetta-pz/accetta-pz.component')
       .then(m => m.AccettaPzComponent),
     pathMatch: 'full'
@@ -21,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'lista-pz',
     pathMatch: 'full'
   },
   {
