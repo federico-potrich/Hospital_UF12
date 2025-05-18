@@ -27,6 +27,8 @@ export class LoginComponent implements AfterViewInit{
 
   }
   ngAfterViewInit(): void {
+
+    //animazioni delle bolle
     const bubbles = document.querySelectorAll('.bubble');
 
     bubbles.forEach((bubble, i) => {
@@ -41,6 +43,7 @@ export class LoginComponent implements AfterViewInit{
         delay: Math.random() * 2, // per desincronizzarle
       });
     });
+    // animazione linea heart beat
     gsap.from(".draw-me", {
       duration: 10,
       drawSVG: 0,
