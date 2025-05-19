@@ -2,11 +2,15 @@
   <div class="box">
   </div>
 </div>
-
+<p-toast />
 <div class="container">
   <div class="form">
     <h1>Login</h1>
     <div class="content">
+      @if(visible()){
+
+        <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Credenziali Errate</p-message>
+      }
       <p-inputgroup>
         <input pInputText class="p-inputtext" [(ngModel)]="credentials.username" placeholder="Email" />
         <p-inputgroup-addon>
@@ -24,9 +28,9 @@
     </div>
     <button class="btn">Utilizza Google</button>
 
+    <div class="border-anim"></div>
   </div>
 </div>
-
 
 <div class="bigBall"></div>
 <div class="bubbles">
