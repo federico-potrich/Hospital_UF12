@@ -1,13 +1,15 @@
 import { Component, inject, input } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { AFPHospitalAPIService } from '../../services/afphospital-api.service';
-import { Paziente } from '../../models/Paziente.model';
+import { CodiceColore, Paziente } from '../../models/Paziente.model';
 import { TableModule } from 'primeng/table';
 import { Reparto } from '../../models/Reparto.model';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-reparto',
-  imports: [TableModule],
+  imports: [TableModule , DatePipe],
   templateUrl: './reparto.component.html',
   styleUrl: './reparto.component.scss'
 })
@@ -51,5 +53,8 @@ export class RepartoComponent {
     this.mediciTurno = this.medici.filter(doc=>doc.reparto_id == this.reparto_id())
     const repartoTrovato = this.api.listaRep().find(rep => rep.id_reparto === this.reparto_id());
     this.reparto = repartoTrovato?.nome;
+  }
+  getCountPazienti(colCode : string = 'BIANCO'){
+    return this.api.listaPz().filter(pz => pz.codice_colore == colCode).length
   }
 }
