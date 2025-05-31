@@ -59,5 +59,12 @@ functions: # AWS LAMBDA functions
           path: /lista-rep
           method: get
 
+  lista-osp:
+    handler: ospedali.listaOspedali
+    events:
+      - httpApi:
+          path: /lista-ospedali
+          method: get
+
 plugins:
   - serverless-offline
