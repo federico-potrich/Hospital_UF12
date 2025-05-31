@@ -28,6 +28,9 @@ export class AFPHospitalAPIService {
   readonly #listaReparti = signal<any[]>([]);
   listaRep = computed(() => this.#listaReparti());
 
+  readonly #listaOspedali = signal<any[]>([]);
+  listOspedali = computed(() => this.#listaOspedali());
+
   constructor(){
     this.getListaReparti()
   }
@@ -97,6 +100,17 @@ export class AFPHospitalAPIService {
 
       this.#listaReparti.set(data)
       return data
+    });
+  }
+  getListaOspedali(){
+    this.#http.get<HttpRes>(this.#URL+"/lista-rep")
+    .pipe(
+      retry(3),
+      map((res) => JSON.parse(res.body as string) as any[])
+    )
+    .subscribe((data) => {
+
+      this.#listaOspedali.set(data)
     });
   }
 }
