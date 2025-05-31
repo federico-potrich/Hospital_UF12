@@ -1,0 +1,75 @@
+<div class="container">
+    <h1 class="title {{reparto.toLowerCase()}}">{{ reparto }}</h1>
+    <div class="bottom">
+        @if(reparto=="Pronto Soccorso"){
+
+        }
+        @else {
+
+        <div class="statistiche">
+            <h1>Statistiche</h1>
+            <div class="content">
+                <div class="{{reparto.toLowerCase()}}-nPazienti">
+                    <h2><b>{{patient.length}}</b></h2>
+                    <h3>Pazienti</h3>
+                </div>
+                <div class="{{reparto.toLowerCase()}}-nletti">
+                    <h2><b>{{25-patient.length}}</b></h2>
+                    <h3>Letti disponibili</h3>
+                </div>
+                <div class="{{reparto.toLowerCase()}}-nRicoveri">
+                    <h2><b>{{patient.length}}</b></h2>
+                    <h3>Ricoveri oggi</h3>
+                </div>
+            </div>
+        </div>
+        <div class="esami">
+            <h1>Prossimi Esami</h1>
+            <div class="examList">
+                @for(exam of [{name:"Ecocardiogramma", date:'23/05/2025 - 19:30'}, {name:"Test da sforzo",
+                date:'23/05/2025 - 20:30'}]; track $index){
+                <span class="exam">
+                    <p><b>{{exam.name}}</b> {{exam.date}}</p>
+                </span>
+                }
+            </div>
+        </div>
+        <div class="ricoveri">
+            <h1>Ricoveri</h1>
+            <p-table [value]="patient" [tableStyle]="{ 'max-width': '25rem' }">
+                <ng-template #header>
+                    <tr>
+                        <th>Codice</th>
+                        <th>Nome</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-patiente>
+                    <tr>
+                        <td>{{ patiente.codice }}</td>
+                        <td>{{ patiente.nome }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="mediciTurno">
+            <h1>Medici di Turno</h1>
+            <p-table [value]="mediciTurno" [tableStyle]="{ 'max-width': '25rem' }">
+                <ng-template #header>
+                    <tr>
+                        <th>Codice</th>
+                        <th>Nome</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-Medico>
+                    <tr>
+                        <td>{{ Medico.sesso=="M" ? "Dott. "+ Medico.cognome : "Dott.ssa "+ Medico.cognome}}</td>
+                        <td>{{ Medico.specializzazione }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+        }
+    </div>
+
+</div>

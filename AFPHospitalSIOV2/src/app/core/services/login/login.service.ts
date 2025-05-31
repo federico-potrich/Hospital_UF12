@@ -11,9 +11,9 @@ export class LoginService {
   readonly logged = computed(() => this.#isLogged());
 
   #fakeUsers = [
-    { username: 'admin', password: 'admin123' },
-    { username: 'user1', password: 'pass1' },
-    { username: 'demo', password: 'demo123' }
+    { username: 'admin', password: 'admin123', reparto_id: 1},
+    { username: 'user1', password: 'pass1' , reparto_id: 2},
+    { username: 'demo', password: 'demo123' , reparto_id: 7}
   ];
 
   constructor() {
@@ -56,5 +56,18 @@ export class LoginService {
     return `${date.getDate().toString().padStart(2, '0')}/${
       (date.getMonth() + 1).toString().padStart(2, '0')
     }/${date.getFullYear()}`;
+  }
+  getData(){
+
+    const lastSession = localStorage.getItem('LAST_SESSION');
+    const today = this.#formatDate(new Date());
+
+    if (lastSession === today && (lastSession != null  && localStorage.getItem('USER') != null) ) {
+      let user = this.#fakeUsers.filter(el=>el.username==localStorage.getItem('USER'))[0]
+
+      // console.log(user)
+      return user;
+    }
+    return null
   }
 }

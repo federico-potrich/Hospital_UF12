@@ -52,5 +52,12 @@ functions: # AWS LAMBDA functions
           path: /dimetti-pz/{id}
           method: delete
 
+  lista-rep:
+    handler: reparti.listaRep
+    events:
+      - httpApi:
+          path: /lista-rep
+          method: get
+
 plugins:
   - serverless-offline

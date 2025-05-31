@@ -23,6 +23,15 @@ export class AFPHospitalAPIService {
   listaPz = computed(() => this.#listaPz());
 
   /**
+   * Signal che gestisce i Reparti
+   */
+  readonly #listaReparti = signal<any[]>([]);
+  listaRep = computed(() => this.#listaReparti());
+
+  constructor(){
+    this.getListaReparti()
+  }
+  /**
    * 4 api
    *
    * - LISTA-PZ
@@ -76,5 +85,18 @@ export class AFPHospitalAPIService {
           console.error(res.error);
         }
       })
+  }
+
+  getListaReparti(){
+    this.#http.get<HttpRes>(this.#URL+"/lista-rep")
+    .pipe(
+      retry(3),
+      map((res) => JSON.parse(res.body as string) as any[])
+    )
+    .subscribe((data) => {
+
+      this.#listaReparti.set(data)
+      return data
+    });
   }
 }

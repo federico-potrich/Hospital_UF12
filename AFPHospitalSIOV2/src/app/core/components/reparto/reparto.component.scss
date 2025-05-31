@@ -1,0 +1,133 @@
+$departments: (
+  cardiologia: #F35152,
+  neurologia: #9032FE,
+  traumatologia: #ff7514,
+  radiologia: #066adb,
+  chirurgia: #ec5578,
+  intensiva: #999da0,
+  pronto: #3eb489
+);
+.title {
+  color: aliceblue;
+  text-align: center;
+  padding: 25px;
+  margin: 0 25px;
+  border-radius: 15px;
+}
+
+@each $name, $color in $departments {
+  .#{$name} {
+    background-color: $color !important;
+  }
+  .#{$name}-nPazienti,
+  .#{$name}-nletti,
+  .#{$name}-nRicoveri {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    background-color: lighten($color, 10%) !important;
+  }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #FBF7F4;
+    height: 100vh;
+
+    ::ng-deep thead {
+      width: 100%;
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-areas:
+        'stat exam'
+        'ricoveri med'
+      ;
+
+      .content {
+        display: flex;
+        justify-content: space-around;
+
+        .nPazienti,
+        .nletti,
+        .nRicoveri {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          justify-content: center;
+          padding-bottom: 20px;
+          width: 150px;
+          height: 150px;
+          border-radius: 15px;
+          // background-color: #f35151be;
+
+        }
+      }
+
+      h1 {
+        padding-bottom: 15px;
+        padding-left: 15px;
+      }
+
+      .statistiche {
+        grid-area: 'stat';
+
+      }
+
+      .esami {
+        grid-area: 'exam';
+
+        .examList {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .exam p {
+            background-color: #F3F3F4;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+
+      .ricoveri {
+        grid-area: 'ricoveri';
+
+      }
+
+      .mediciTurno {
+        grid-area: 'med';
+
+      }
+
+      .statistiche,
+      .esami,
+      .ricoveri,
+      .mediciTurno {
+        background-color: white;
+        margin: 25px;
+        padding: 50px;
+      }
+    }
+  }
+@media (prefers-color-scheme:dark){
+  .bottom{
+
+    div{
+        h1{
+          -webkit-text-stroke: 1.5px black;
+        }
+      }
+  }
+
+}

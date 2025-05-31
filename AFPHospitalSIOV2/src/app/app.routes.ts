@@ -1,3 +1,4 @@
+import { HomepageComponent } from './feature/homepage/homepage.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guard/auth.guard';
 
@@ -23,13 +24,20 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'home',
+    canActivate:[AuthGuard],
+    loadComponent: () => import('./feature/homepage/homepage.component')
+      .then(m => m.HomepageComponent),
+    pathMatch: 'full'
+  },
+  {
     path: '',
-    redirectTo: 'lista-pz',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'lista-pz',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];

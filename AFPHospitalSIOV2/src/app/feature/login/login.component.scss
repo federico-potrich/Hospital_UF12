@@ -9,7 +9,9 @@
 
   z-index: -1;
 }
-
+h1{
+height: 75px;
+}
 .container {
   border: 100px solid #232730;
   height: 100vh;
@@ -60,6 +62,7 @@
         border: none;
         border-bottom-right-radius: 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.329);
+        color: black;
         height: 58.750px;
         text-indent: 8px;
       }
@@ -112,12 +115,14 @@
       width: 100%;
       border: none;
       border-bottom: 1px solid rgba(0, 0, 0, 0.329);
+      color: black;
     }
 
     ::ng-deep .p-password {
       padding: 0;
       width: 100%;
       border: none;
+      color: black;
     }
 
 
