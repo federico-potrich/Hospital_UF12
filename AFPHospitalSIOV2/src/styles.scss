@@ -5,6 +5,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+
+}
+body{
   overflow: hidden;
 }
-// body > app-root > app-login > div.container > div > div.content >
+::ng-deep p-overlay {
+  overflow: visible !important;
+}

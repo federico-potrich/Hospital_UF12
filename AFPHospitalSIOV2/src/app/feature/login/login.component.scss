@@ -235,6 +235,7 @@ height: 75px;
 }
 
 .form {
+  overflow: hidden;
 	&::before {
 		content: '';
 		position: absolute;

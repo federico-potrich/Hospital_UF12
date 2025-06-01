@@ -144,6 +144,10 @@ $departments: (
     padding: 20px;
   }
 }
+
+::ng-deep p-overlay{
+  overflow: visible;
+}
 $colorsCode: (
   bianco: aliceblue,
   verde: #3eb489,
@@ -172,4 +176,7 @@ $colorsCode: (
   padding: 50px;
   border-bottom: 1px solid;
   margin-bottom: 10px;
+}
+::ng-deep p-overlay {
+  overflow: visible !important;
 }

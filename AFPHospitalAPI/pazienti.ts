@@ -48,46 +48,103 @@ export const listaPz = async () => {
     }
 };
 
+// export const accettaPz = async (event) => {
+//     let connection;
+
+//     try {
+//         // Connesione al DB
+//         connection = await mysql.createConnection(dbConfig);
+
+//         if (!event.body) {
+//             throw new Error("Non è stato passato il paziente nel body della richiesta");
+//         }
+
+//         let pzTmp = JSON.parse(event.body.trim());
+
+        
+
+//         // Eseguiamo la query
+//         const [pzCreation] = await connection.execute(`
+//             INSERT INTO Anagrafica (nome, cognome, data_nascita, codice_fiscale)
+//             VALUES (?, ?, ?, ?);
+//         `,
+//         [pzTmp.nome, pzTmp.cognome, new Date(pzTmp.dataNascita), pzTmp.codiceFiscale]);
+
+
+//         let pzNewID = pzCreation.insertId;
+
+//         const [newPazient] = await connection.execute(`
+//             INSERT INTO Paziente (anagrafica_id, reparto_id, codice, codice_colore, stato)
+//             VALUES (?, (SELECT id from Reparto r WHERE nome = 'Pronto Soccorso' LIMIT 1), ?, ?, ?);
+//         `,
+//         [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
+
+
+//         return createHttpResponceOK({
+//             messaggio: "Creato Paziente",
+//             pzID: newPazient.insertId
+//         });
+//     } catch (error) {
+//         return createHttpResponceKO(error);
+//     } finally{
+//         connection.end();
+//     }
+// };
+
 export const accettaPz = async (event) => {
     let connection;
 
     try {
-        // Connesione al DB
         connection = await mysql.createConnection(dbConfig);
 
         if (!event.body) {
             throw new Error("Non è stato passato il paziente nel body della richiesta");
         }
 
-        let pzTmp = JSON.parse(event.body.trim());
+        const pzTmp = JSON.parse(event.body.trim());
 
-        // Eseguiamo la query
-        const [pzCreation] = await connection.execute(`
-            INSERT INTO Anagrafica (nome, cognome, data_nascita, codice_fiscale)
-            VALUES (?, ?, ?, ?);
-        `,
-        [pzTmp.nome, pzTmp.cognome, new Date(pzTmp.dataNascita), pzTmp.codiceFiscale]);
+        // Prima verifichiamo se il codice fiscale è già presente
+        const [existing] = await connection.execute(`
+            SELECT id FROM Anagrafica WHERE codice_fiscale = ?
+        `, [pzTmp.codiceFiscale]);
 
+        let pzNewID;
 
-        let pzNewID = pzCreation.insertId;
+        if (existing.length > 0) {
+            // Codice fiscale già presente
+            pzNewID = existing[0].id;
+        } else {
+            // Inserisci nuovo record
+            const [pzCreation] = await connection.execute(`
+                INSERT INTO Anagrafica (nome, cognome, data_nascita, codice_fiscale)
+                VALUES (?, ?, ?, ?)
+            `, [pzTmp.nome, pzTmp.cognome, new Date(pzTmp.dataNascita), pzTmp.codiceFiscale]);
 
+            pzNewID = pzCreation.insertId;
+        }
+
+        // Ora inseriamo nella tabella Paziente
         const [newPazient] = await connection.execute(`
             INSERT INTO Paziente (anagrafica_id, reparto_id, codice, codice_colore, stato)
-            VALUES (?, (SELECT id from Reparto r WHERE nome = 'Pronto Soccorso' LIMIT 1), ?, ?, ?);
-        `,
-        [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
-
+            VALUES (
+                ?, 
+                (SELECT id FROM Reparto WHERE nome = 'Pronto Soccorso' LIMIT 1), 
+                ?, ?, ?
+            );
+        `, [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
 
         return createHttpResponceOK({
             messaggio: "Creato Paziente",
             pzID: newPazient.insertId
         });
+
     } catch (error) {
         return createHttpResponceKO(error);
-    } finally{
-        connection.end();
+    } finally {
+        if (connection) await connection.end();
     }
 };
+
 
 export const trasferisciPz = async (event) => { 
     let connection;

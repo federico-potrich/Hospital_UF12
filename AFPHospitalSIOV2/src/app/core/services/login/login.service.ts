@@ -11,7 +11,7 @@ export class LoginService {
   readonly logged = computed(() => this.#isLogged());
 
   #fakeUsers = [
-    { username: 'admin', password: 'admin123', reparto_id: 7},
+    { username: 'admin', password: 'admin123', reparto_id: 1},
     { username: 'user1', password: 'pass1' , reparto_id: 2},
     { username: 'demo', password: 'demo123' , reparto_id: 7}
   ];

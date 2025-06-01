@@ -60,7 +60,7 @@ export class AFPHospitalAPIService {
       )
       .subscribe(data => {
         if (data.state === 'KO') console.error(data.error);
-        this.#router.navigate(['/lista-pz']);
+        // this.#router.navigate(['/']);
       });
   }
 
@@ -103,7 +103,7 @@ export class AFPHospitalAPIService {
     });
   }
   getListaOspedali(){
-    this.#http.get<HttpRes>(this.#URL+"/lista-rep")
+    this.#http.get<HttpRes>(this.#URL+"/lista-ospedali")
     .pipe(
       retry(3),
       map((res) => JSON.parse(res.body as string) as any[])

@@ -1,8 +1,11 @@
 <div class="container">
-    <h1 class="title {{reparto.toLowerCase()}}">{{ reparto }}</h1>
+    <h1 class="title {{reparto?.toLowerCase()}}">{{ reparto }}</h1>
     <div class="bottom">
         @if(reparto=="Pronto Soccorso"){
         <div class="cnt">
+            <div class="actions">
+              <button [routerLink]="['/accetta-pz']" >Aggiungi Paziente</button>
+            </div>
 
             <div class="summary">
                 @for(codice of ['BIANCO','VERDE','AZZURRO','ARANCIONE','ROSSO']; track $index){
@@ -25,9 +28,11 @@
                         <p>{{pz.stato}}</p>
                     </div>
                     <div class="pz_card__action">
-                        <button (click)="api.traferisciPaziente(pz.id_paziente)">
+                        <!-- <button (click)="api.traferisciPaziente(pz.id_paziente)">
                             TRASFERISCI
-                        </button>
+                        </button> -->
+                        <p-cascadeselect [(ngModel)]="selectedOptions" [options]="optionsTmp" optionLabel="nome" optionGroupLabel="nome" [optionGroupChildren]="['child']" [style]="{ minWidth: '14rem' }"  placeholder="Seleziona un azione" />
+
                         <button (click)="api.dimettiPaziente(pz.id_paziente)">
                             DIMETTI
                         </button>
