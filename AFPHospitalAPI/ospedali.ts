@@ -23,7 +23,7 @@ export const listaOspedali = async () => {
         // Eseguiamo la query
         const [row] = await connection.execute(`
             SELECT 
-                o.id as id_reparto,
+                o.id as id_ospedale,
                 o.nome
             FROM Ospedali o
         `);

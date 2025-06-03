@@ -161,16 +161,21 @@ export const trasferisciPz = async (event) => {
         }
 
         let pathParam = event.pathParameters;
-        if (!pathParam['id']) {
+        
+        if (!pathParam['reparto_id']) {
             throw new Error("Non è stato trovato il parametro 'ID'");
         }
+        if (!pathParam['paziente_id']) {
+            throw new Error("Non è stato trovato il parametro 'ID'");
+        }
+        let reparto_id = pathParam['reparto_id']
+        let paziente_id = pathParam['paziente_id']
 
         const [updatedPazient] = await connection.execute(`
             UPDATE Paziente p 
-            SET stato = 'TRASFERITO', reparto_id = NULL 
+            SET stato = 'TRASFERITO', reparto_id = ? 
             WHERE p.id = ?;
-        `,
-        [pathParam['id']]);
+        `, [reparto_id, paziente_id]);
 
         return createHttpResponceOK({
             messaggio: updatedPazient.info,

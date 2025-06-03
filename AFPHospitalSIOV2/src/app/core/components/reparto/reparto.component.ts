@@ -3,17 +3,18 @@ import { LoginService } from '../../services/login/login.service';
 import { AFPHospitalAPIService } from '../../services/afphospital-api.service';
 import { Paziente } from '../../models/Paziente.model';
 import { TableModule } from 'primeng/table';
-import { DatePipe, JsonPipe } from '@angular/common';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
+import { PazienteComponent } from '../paziente/paziente.component';
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-reparto',
-  imports: [TableModule, DatePipe, CascadeSelectModule, FormsModule, SelectModule, ButtonModule, RouterLink],
+  imports: [TableModule, CascadeSelectModule, FormsModule, SelectModule, ButtonModule, RouterLink, PazienteComponent, JsonPipe],
   standalone: true,
   templateUrl: './reparto.component.html',
   styleUrl: './reparto.component.scss'
@@ -27,6 +28,9 @@ export class RepartoComponent implements OnInit {
   reparto: any;
 
   patient: Paziente[] = []
+
+  pazientiProntoSoccorso = this.api.listaPz().filter(pz=>pz.id_reparto==7)
+
   medici: any[] = [
     {
       cognome: "Verdi",
@@ -49,19 +53,6 @@ export class RepartoComponent implements OnInit {
   ]
   mediciTurno: any[] = []
 
-  optionsTmp: any[] = [
-      {
-        nome: 'Trasferisci Reparto',
-        code: 'TR',
-        child: this.api.listaRep()
-      },
-      {
-        nome: 'Trasferisci Ospedale',
-        code: 'TR',
-        child: this.api.listOspedali()
-      }
-  ];
-  selectedOptions : any;
 
   constructor() {
     this.api.getListaPazienti()
@@ -78,6 +69,6 @@ export class RepartoComponent implements OnInit {
   }
 
   getCountPazienti(colCode: string = 'BIANCO') {
-    return this.api.listaPz().filter(pz => pz.codice_colore == colCode).length
+    return this.pazientiProntoSoccorso.filter(pz => pz.codice_colore == colCode).length
   }
 }

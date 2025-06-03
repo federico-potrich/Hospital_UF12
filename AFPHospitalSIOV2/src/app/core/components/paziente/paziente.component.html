@@ -1,0 +1,22 @@
+<div class="pz-card">
+  <h3>{{pz().cognome}} {{pz().nome}}</h3>
+  <p>Codice PZ: {{pz().codice}}</p>
+  <p>Data di nascita: {{pz().data_nascita | date:'dd/MM/YYYY'}}</p>
+  <p>Codice fiscale: {{pz().codice_fiscale}}</p>
+  <div class="pz_card__info">
+    <p>{{pz().codice_colore}}</p>
+    <p>{{pz().stato}}</p>
+  </div>
+  <div class="pz_card__action">
+    <!-- <button (click)="api.traferisciPaziente(pz.id_paziente)">
+        TRASFERISCI
+    </button> -->
+    <p-cascadeselect [(ngModel)]="selectedOptions" [options]="optionsTmp" optionLabel="nome" optionGroupLabel="nome"
+      [optionGroupChildren]="['children']" [style]="{ minWidth: '14rem' }" placeholder="Seleziona un azione" />
+
+    <button (click)="ActionPatience()"
+    [disabled]="!validateInput()">
+      Azione
+    </button>
+  </div>
+</div>

@@ -33,6 +33,7 @@ export class AFPHospitalAPIService {
 
   constructor(){
     this.getListaReparti()
+    this.getListaOspedali()
   }
   /**
    * 4 api
@@ -64,8 +65,8 @@ export class AFPHospitalAPIService {
       });
   }
 
-  traferisciPaziente(idPaziente: number): void{
-    this.#http.put<HttpRes>(`${this.#URL}/trasferisci-pz/${idPaziente}`, {})
+  traferisciPaziente(idReparto:number, idPaziente: number): void{
+    this.#http.put<HttpRes>(`${this.#URL}/trasferisci-pz/${idPaziente}/${idReparto}`, {})
       .pipe(
         retry(3),
         finalize(() => this.getListaPazienti())
@@ -74,6 +75,7 @@ export class AFPHospitalAPIService {
         if (res.state ==='KO'){
           console.error(res.error);
         }
+        console.log(res)
       })
   }
 
@@ -109,7 +111,6 @@ export class AFPHospitalAPIService {
       map((res) => JSON.parse(res.body as string) as any[])
     )
     .subscribe((data) => {
-
       this.#listaOspedali.set(data)
     });
   }

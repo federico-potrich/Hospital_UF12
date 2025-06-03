@@ -42,7 +42,7 @@ functions: # AWS LAMBDA functions
     handler: pazienti.trasferisciPz
     events:
       - httpApi: 
-          path: /trasferisci-pz/{id}
+          path: /trasferisci-pz/{paziente_id}/{reparto_id}
           method: put
   
   dimetti-pz: 
