@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { AFPHospitalAPIService } from '../../services/afphospital-api.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paziente',
@@ -14,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 export class PazienteComponent{
   pz = input.required<Paziente>()
   api = inject(AFPHospitalAPIService);
+
+  #router = inject(Router);
 
   constructor() {
     this.api.getListaReparti()
@@ -47,6 +50,8 @@ export class PazienteComponent{
     }else if(this.selectedOptions.code=='D'){
       this.api.dimettiPaziente(this.pz().id_paziente)
     }
+
+    this.#router.navigate(['']);
   }
   validateInput():boolean{
     if (!this.selectedOptions) return false;

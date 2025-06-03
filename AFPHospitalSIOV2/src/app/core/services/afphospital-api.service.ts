@@ -77,6 +77,8 @@ export class AFPHospitalAPIService {
         }
         console.log(res)
       })
+
+    this.#router.navigate(['']);
   }
 
   dimettiPaziente(idPaziente: number): void{
@@ -90,6 +92,8 @@ export class AFPHospitalAPIService {
           console.error(res.error);
         }
       })
+
+    this.#router.navigate(['']);
   }
 
   getListaReparti(){
