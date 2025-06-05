@@ -9,12 +9,11 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { PazienteComponent } from '../paziente/paziente.component';
-import { JsonPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-reparto',
-  imports: [TableModule, CascadeSelectModule, FormsModule, SelectModule, ButtonModule, RouterLink, PazienteComponent, JsonPipe],
+  imports: [TableModule, CascadeSelectModule, FormsModule, SelectModule, ButtonModule, RouterLink, PazienteComponent],
   standalone: true,
   templateUrl: './reparto.component.html',
   styleUrl: './reparto.component.scss'
@@ -59,8 +58,8 @@ export class RepartoComponent implements OnInit {
     this.api.getListaReparti()
     this.api.getListaOspedali()
   }
+  
   ngOnInit() {
-
     this.patient = this.api.listaPz().filter(pz => pz.id_reparto == this.reparto_id())
     this.mediciTurno = this.medici.filter(doc => doc.reparto_id == this.reparto_id())
     const repartoTrovato = this.api.listaRep().find(rep => rep.id_reparto === this.reparto_id());

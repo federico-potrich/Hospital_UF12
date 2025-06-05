@@ -1,46 +1,60 @@
 <div class="form">
-  <label for="nome">Nome</label>
-  <input
-    type="text"
-    id="nome"
-    placeholder="Nome"
-    [(ngModel)]="nome"
-  >
+  <h1>Accettazione</h1>
+  <div class="breakFlex">
+    <label for="nome">Nome</label>
+    <input
+      type="text"
+      id="nome"
+      placeholder="Nome"
+      [(ngModel)]="nome"
+    >
+  </div>
+  <div class="breakFlex">
+    <label for="cognome">Cognome</label>
+    <input
+      type="text"
+      id="cognome"
+      placeholder="Cognome"
+      [(ngModel)]="cognome"
+    >
+  </div>
+  <div class="breakFlex">
+    <label for="dataNascita">Data di nascita</label>
+    <input
+      type="date"
+      id="dataNascita"
+      placeholder="Data di nascita"
+      [(ngModel)]="dataNascita"
+    >
+  </div>
+  <div class="breakFlex">
+    <label for="codiceFiscale">Codice fiscale</label>
+    <input
+      type="text"
+      id="codiceFiscale"
+      placeholder="Codice fiscale"
+      [(ngModel)]="codiceFiscale"
+    >
+  </div>
+  <div class="breakFlex">
+    <label for="codiceColore">Codice colore</label>
+    <select
+      id="codiceColore"
+      [(ngModel)]="codiceColore"
+    >
+      <option value="BIANCO">🤍BIANCO</option>
+      <option value="VERDE">💚VERDE</option>
+      <option value="AZZURRO">🩵AZZURRO</option>
+      <option value="ARANCIONE">🧡ARANCIONE</option>
+      <option value="ROSSO">❤️ROSSO</option>
+    </select>
+  </div>
+  <div class="breakFlex">
+    <label for="note">Note</label>
+    <textarea [(ngModel)]="note" id="note"></textarea>
+  </div>
 
-  <label for="cognome">Cognome</label>
-  <input
-    type="text"
-    id="cognome"
-    placeholder="Cognome"
-    [(ngModel)]="cognome"
-  >
 
-  <label for="dataNascita">Data di nascita</label>
-  <input
-    type="date"
-    id="dataNascita"
-    placeholder="Data di nascita"
-    [(ngModel)]="dataNascita"
-  >
-
-  <label for="codiceFiscale">Codice fiscale</label>
-  <input
-    type="text"
-    id="codiceFiscale"
-    placeholder="Codice fiscale"
-    [(ngModel)]="codiceFiscale"
-  >
-  <label for="codiceColore">Codice colore</label>
-  <select
-    id="codiceColore"
-    [(ngModel)]="codiceColore"
-  >
-    <option value="BIANCO">BIANCO</option>
-    <option value="VERDE">VERDE</option>
-    <option value="AZZURRO">AZZURRO</option>
-    <option value="ARANCIONE">ARANCIONE</option>
-    <option value="ROSSO">🔴ROSSO</option>
-  </select>
 
   <button
     (click)="accettaPaziente()"

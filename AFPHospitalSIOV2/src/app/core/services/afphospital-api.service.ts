@@ -31,6 +31,9 @@ export class AFPHospitalAPIService {
   readonly #listaOspedali = signal<any[]>([]);
   listOspedali = computed(() => this.#listaOspedali());
 
+  readonly #storia = signal<string[]>([])
+  listStoria = computed(()=>this.#storia());
+
   constructor(){
     this.getListaReparti()
     this.getListaOspedali()
@@ -63,6 +66,16 @@ export class AFPHospitalAPIService {
         if (data.state === 'KO') console.error(data.error);
         // this.#router.navigate(['/']);
       });
+  }
+  storiaPaziente(codicePZ : string): void{
+    this.#http.get<HttpRes>(`${this.#URL}/storia-pz/${codicePZ}`)
+    .pipe(
+      retry(3),
+      map((res) => JSON.parse(res.body as string) as string[])
+    )
+    .subscribe((data) => {
+      this.#storia.set(data)
+    });
   }
 
   traferisciPaziente(idReparto:number, idPaziente: number): void{

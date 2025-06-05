@@ -43,53 +43,71 @@ export const listaPz = async () => {
         return createHttpResponceOK(row);
     } catch (error) {
         return createHttpResponceKO(error);
-    } finally{
+    } finally {
         connection.end();
     }
 };
 
-// export const accettaPz = async (event) => {
-//     let connection;
+export const storiaPz = async (event) => {
+    let connection;
 
-//     try {
-//         // Connesione al DB
-//         connection = await mysql.createConnection(dbConfig);
+    try {
+        // Connesione al DB
+        connection = await mysql.createConnection(dbConfig);
+        let pathParam = event.pathParameters;
 
-//         if (!event.body) {
-//             throw new Error("Non è stato passato il paziente nel body della richiesta");
-//         }
+        if (!pathParam['paziente_id']) {
+            throw new Error("Non è stato trovato il parametro 'ID'");
+        }
 
-//         let pzTmp = JSON.parse(event.body.trim());
+        let paziente_id = pathParam['paziente_id']
+        // Eseguiamo la query
+        const [row] = await connection.execute(`
+            SELECT 
+    cc.id AS cartella_id,
+    cc.data_creazione,
+    cc.fase,
+    cc.diagnosi,
+    cc.trattamento,
+    cc.note,
+    
+    p.codice AS codice_paziente,
+    p.codice_colore,
+    p.stato,
+    
+    a.nome AS nome_paziente,
+    a.cognome AS cognome_paziente,
+    a.data_nascita,
+    a.codice_fiscale,
 
-        
+    r.nome AS reparto,
+    
+    m.specializzazione,
+    am.nome AS nome_medico,
+    am.cognome AS cognome_medico,
 
-//         // Eseguiamo la query
-//         const [pzCreation] = await connection.execute(`
-//             INSERT INTO Anagrafica (nome, cognome, data_nascita, codice_fiscale)
-//             VALUES (?, ?, ?, ?);
-//         `,
-//         [pzTmp.nome, pzTmp.cognome, new Date(pzTmp.dataNascita), pzTmp.codiceFiscale]);
+    ai.nome AS nome_infermiere,
+    ai.cognome AS cognome_infermiere
 
+FROM CartellaClinica cc
+LEFT JOIN Paziente p ON cc.paziente_id = p.id
+LEFT JOIN Anagrafica a ON p.anagrafica_id = a.id
+LEFT JOIN Reparto r ON p.reparto_id = r.id
+LEFT JOIN Medico m ON cc.medico_id = m.id
+LEFT JOIN Anagrafica am ON m.anagrafica_id = am.id
+LEFT JOIN Infermiere i ON cc.infermiere_id = i.id
+LEFT JOIN Anagrafica ai ON i.anagrafica_id = ai.id
+	having codice_paziente = ?
+;`,[paziente_id]);
 
-//         let pzNewID = pzCreation.insertId;
+        return createHttpResponceOK(row);
+    } catch (error) {
+        return createHttpResponceKO(error);
+    } finally {
+        connection.end();
+    }
+};
 
-//         const [newPazient] = await connection.execute(`
-//             INSERT INTO Paziente (anagrafica_id, reparto_id, codice, codice_colore, stato)
-//             VALUES (?, (SELECT id from Reparto r WHERE nome = 'Pronto Soccorso' LIMIT 1), ?, ?, ?);
-//         `,
-//         [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
-
-
-//         return createHttpResponceOK({
-//             messaggio: "Creato Paziente",
-//             pzID: newPazient.insertId
-//         });
-//     } catch (error) {
-//         return createHttpResponceKO(error);
-//     } finally{
-//         connection.end();
-//     }
-// };
 
 export const accettaPz = async (event) => {
     let connection;
@@ -132,6 +150,21 @@ export const accettaPz = async (event) => {
                 ?, ?, ?
             );
         `, [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
+        
+        //da modificare body
+        await connection.execute(`
+            INSERT INTO CartellaClinica (paziente_id, medico_id, diagnosi, trattamento, fase, note)
+            VALUES (
+                ?, ?,
+                ?,
+                ?,
+                'TRIAGE',
+                ?
+            );
+        `, [pzNewID, pzTmp.medicoID, pzTmp.diagnosi, pzTmp.trattamento, , pzTmp.note]);
+
+        
+
 
         return createHttpResponceOK({
             messaggio: "Creato Paziente",
@@ -146,7 +179,7 @@ export const accettaPz = async (event) => {
 };
 
 
-export const trasferisciPz = async (event) => { 
+export const trasferisciPz = async (event) => {
     let connection;
 
     try {
@@ -161,7 +194,7 @@ export const trasferisciPz = async (event) => {
         }
 
         let pathParam = event.pathParameters;
-        
+
         if (!pathParam['reparto_id']) {
             throw new Error("Non è stato trovato il parametro 'ID'");
         }
@@ -184,12 +217,12 @@ export const trasferisciPz = async (event) => {
 
     } catch (error) {
         return createHttpResponceKO(error);
-    } finally{
+    } finally {
         connection.end();
     }
 };
 
-export const dimettiPz = async (event) => { 
+export const dimettiPz = async (event) => {
     let connection;
 
     try {
@@ -213,7 +246,7 @@ export const dimettiPz = async (event) => {
             SET stato = 'DIMESSO', reparto_id = NULL 
             WHERE p.id = ?;
         `,
-        [pathParam['id']]);
+            [pathParam['id']]);
 
         return createHttpResponceOK({
             messaggio: dismissedPazient.info,
@@ -222,7 +255,7 @@ export const dimettiPz = async (event) => {
 
     } catch (error) {
         return createHttpResponceKO(error);
-    } finally{
+    } finally {
         connection.end();
     }
 };

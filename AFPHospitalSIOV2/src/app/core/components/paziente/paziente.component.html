@@ -11,7 +11,7 @@
     <!-- <button (click)="api.traferisciPaziente(pz.id_paziente)">
         TRASFERISCI
     </button> -->
-    <p-cascadeselect [(ngModel)]="selectedOptions" [options]="optionsTmp" optionLabel="nome" optionGroupLabel="nome"
+    <p-cascadeselect (onChange)="onChangeInput()" [(ngModel)]="selectedOptions" [options]="optionsTmp" optionLabel="nome" optionGroupLabel="nome"
       [optionGroupChildren]="['children']" [style]="{ minWidth: '14rem' }" placeholder="Seleziona un azione" />
 
     <button (click)="ActionPatience()"

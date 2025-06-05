@@ -51,6 +51,13 @@ functions: # AWS LAMBDA functions
       - httpApi:
           path: /dimetti-pz/{id}
           method: delete
+  
+  diario-clinico-pz: 
+    handler: pazienti.storiaPz
+    events:
+      - httpApi:
+          path: /storia-pz/{paziente_id}
+          method: get
 
   lista-rep:
     handler: reparti.listaRep

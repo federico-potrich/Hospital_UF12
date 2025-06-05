@@ -2,6 +2,7 @@ import {Component, computed, inject, signal} from '@angular/core';
 import {CodiceColore, CreazionePaziente, StatoPZ} from '../../core/models/Paziente.model';
 import {FormsModule} from '@angular/forms';
 import {AFPHospitalAPIService} from '../../core/services/afphospital-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accetta-pz',
@@ -35,11 +36,19 @@ export class AccettaPzComponent {
   )
   readonly codiceFiscale = signal<string>('');
   readonly codiceColore = signal<CodiceColore>('NON FORNITO');
+  readonly fase = signal<Fase>('TRIAGE');
+  readonly note = signal<string>('');
 
   calcolaCodicePZ(): string{
+    let dataAttuale = new Date()
+    const yyyy = dataAttuale.getFullYear();
+    const dd = String(dataAttuale.getDate()).padStart(2, '0');
+    const mm = String(dataAttuale.getMonth() + 1).padStart(2, '0'); // Mese da 0 a 11
     return this.nome().charAt(0) +
       this.cognome().charAt(0) +
-      this.dataNascitaParse().getFullYear()
+      this.dataNascitaParse().getFullYear()+
+      "_"+dd+mm+yyyy
+
   }
 
   accettaPaziente(): void{
@@ -54,6 +63,7 @@ export class AccettaPzComponent {
     }
 
     this.#AFPHospitalAPI.accettaPaziente(pzTmp);
+    inject(Router).navigate([''])
   }
 
   /**
@@ -75,3 +85,4 @@ export class AccettaPzComponent {
   }
 
 }
+export type Fase  = 'TRIAGE' | 'ANAMNESI' | 'DIARIO CLINICO' | 'DIMISSIONE'
