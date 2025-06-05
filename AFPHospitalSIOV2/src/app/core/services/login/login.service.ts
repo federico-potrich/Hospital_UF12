@@ -1,5 +1,8 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { getApp, initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +11,7 @@ export class LoginService {
 
   #router = inject(Router);
   #isLogged = signal<boolean>(false);
+  #auth = inject(Auth);
   readonly logged = computed(() => this.#isLogged());
 
   #fakeUsers = [
@@ -50,6 +54,25 @@ export class LoginService {
       return false;
     }
   }
+  async loginEmail(
+        email: string,
+        password: string
+      ): Promise<boolean> {
+        const auth = getAuth(getApp());
+        return signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Login riuscito
+            const user = userCredential.user;
+            console.log(user)
+            return true;
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+            return false;
+          });
+      }
 
   // FUNZIONE CHE RESTITUISCE LA DATA DI OGGI con formato dd/MM/yyyy
   #formatDate(date: Date): string {
