@@ -1,3 +1,6 @@
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp } from 'firebase/app';
 import { ApplicationConfig, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -8,6 +11,9 @@ import { AFPHospitalAPIService } from './core/services/afphospital-api.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { APSS_theme } from '../theme/APSS_theme';
+import { firebaseConfig } from './environment/environment';
+
+
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -22,6 +28,8 @@ export const appConfig: ApplicationConfig = {
             theme: {
                 preset: APSS_theme
             }
-        })
+        }),
+        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideAuth(() => getAuth()),
     ]
 };
