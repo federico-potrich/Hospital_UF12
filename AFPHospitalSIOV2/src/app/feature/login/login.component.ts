@@ -31,7 +31,7 @@ export class LoginComponent implements AfterViewInit {
   visible = signal<boolean>(false);
 
   credentials: any = {
-    username: "",
+    email: "",
     password: ""
   }
   constructor(private messageService: MessageService) {
@@ -40,8 +40,9 @@ export class LoginComponent implements AfterViewInit {
     }
   }
 
-  login() {
-    if(this.#service.login(this.credentials.username, this.credentials.password)==false){
+  async login() {
+    // console.log(this.#service.loginEmail(this.credentials.email, this.credentials.password))
+    if(await this.#service.loginEmail(this.credentials.email, this.credentials.password)==false){
       this.messageService.add({ severity: 'error', summary: 'Login Failed', detail: 'Your email or password is incorrect.\n\rPlease try again.' , sticky: true });
       this.visible.set(true);
     }

@@ -15,9 +15,9 @@ export class LoginService {
   readonly logged = computed(() => this.#isLogged());
 
   #fakeUsers = [
-    { username: 'admin', password: 'admin123', reparto_id: 7},
-    { username: 'user1', password: 'pass1' , reparto_id: 2},
-    { username: 'demo', password: 'demo123' , reparto_id: 7}
+    { email: 'admin@apss.tn.it', reparto_id: 7},
+    { email: 'user1', password: 'pass1' , reparto_id: 2},
+    { email: 'demo', password: 'demo123' , reparto_id: 7}
   ];
 
   constructor() {
@@ -35,8 +35,8 @@ export class LoginService {
     }
   }
 
-  login(username: string, password: string): boolean {
-    const user = this.#fakeUsers.find(u => u.username === username && u.password === password);
+  #login(username: string, password : string): boolean {
+    const user = this.#fakeUsers.find(u => u.email === username && u.password === password);
 
     if (user) {
       this.#isLogged.set(true);
@@ -45,7 +45,7 @@ export class LoginService {
       const formattedDate = this.#formatDate(now);
 
       localStorage.setItem('LAST_SESSION', formattedDate);
-      localStorage.setItem('USER', user.username);
+      localStorage.setItem('USER', user.email);
 
       this.#router.navigate(['']);
       return true;
@@ -62,8 +62,17 @@ export class LoginService {
         return signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Login riuscito
-            const user = userCredential.user;
-            console.log(user)
+
+            const userTMP = userCredential.user;
+            this.#isLogged.set(true);
+
+            const now = new Date();
+            const formattedDate = this.#formatDate(now);
+
+            localStorage.setItem('LAST_SESSION', formattedDate);
+            localStorage.setItem('USER', ""+userTMP.email);
+
+            this.#router.navigate(['']);
             return true;
           })
           .catch((error) => {
@@ -86,7 +95,7 @@ export class LoginService {
     const today = this.#formatDate(new Date());
 
     if (lastSession === today && (lastSession != null  && localStorage.getItem('USER') != null) ) {
-      let user = this.#fakeUsers.filter(el=>el.username==localStorage.getItem('USER'))[0]
+      let user = this.#fakeUsers.filter(el=>el.email==localStorage.getItem('USER'))[0]
 
       // console.log(user)
       return user;

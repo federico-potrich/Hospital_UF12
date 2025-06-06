@@ -31,7 +31,7 @@ export class AFPHospitalAPIService {
   readonly #listaOspedali = signal<any[]>([]);
   listOspedali = computed(() => this.#listaOspedali());
 
-  readonly #storia = signal<string[]>([])
+  readonly #storia = signal<any[]>([])
   listStoria = computed(()=>this.#storia());
 
   constructor(){
@@ -56,10 +56,9 @@ export class AFPHospitalAPIService {
     .subscribe((data) => this.#listaPz.set(data));
   }
 
-  accettaPaziente(pz: CreazionePaziente): void{
+  accettaPaziente(pz: any): void{
     this.#http.post<HttpRes>(`${this.#URL}/accetta-pz`, pz)
       .pipe(
-        retry(3),
         finalize(() => this.getListaPazienti())
       )
       .subscribe(data => {

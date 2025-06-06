@@ -151,19 +151,29 @@ export const accettaPz = async (event) => {
             );
         `, [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
         
+        console.log("Dati per CartellaClinica:", {
+            paziente_id: pzNewID,
+            medico_id: pzTmp.medicoID,
+            infermiere_id: pzTmp.infermiereID,
+            diagnosi: pzTmp.diagnosi,
+            trattamento: pzTmp.trattamento,
+            fase: pzTmp.fase,
+            note: pzTmp.note,
+        });
+
         //da modificare body
         await connection.execute(`
-            INSERT INTO CartellaClinica (paziente_id, medico_id, diagnosi, trattamento, fase, note)
-            VALUES (
-                ?, ?,
-                ?,
-                ?,
-                'TRIAGE',
-                ?
-            );
-        `, [pzNewID, pzTmp.medicoID, pzTmp.diagnosi, pzTmp.trattamento, , pzTmp.note]);
-
-        
+            INSERT INTO CartellaClinica (paziente_id, medico_id, infermiere_id, diagnosi, trattamento, fase, note)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        `, [
+            newPazient.insertId,      // <-- questo è l'ID corretto del paziente
+            pzTmp.medicoID,
+            pzTmp.infermiereID,
+            pzTmp.diagnosi,
+            pzTmp.trattamento,
+            pzTmp.fase,
+            pzTmp.note
+        ]);
 
 
         return createHttpResponceOK({

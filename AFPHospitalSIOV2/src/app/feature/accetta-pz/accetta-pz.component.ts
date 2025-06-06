@@ -31,12 +31,16 @@ export class AccettaPzComponent {
   readonly nome = signal<string>('');
   readonly cognome = signal<string>('');
   readonly dataNascita = signal<string>('');
+
   readonly dataNascitaParse = computed(() =>
     this.dataNascita() ? new Date(this.dataNascita()) : new Date('1970-01-01')
   )
+
   readonly codiceFiscale = signal<string>('');
   readonly codiceColore = signal<CodiceColore>('NON FORNITO');
   readonly fase = signal<Fase>('TRIAGE');
+  readonly diagnosi = signal<string>('');
+  readonly trattamento = signal<string>('');
   readonly note = signal<string>('');
 
   calcolaCodicePZ(): string{
@@ -48,18 +52,23 @@ export class AccettaPzComponent {
       this.cognome().charAt(0) +
       this.dataNascitaParse().getFullYear()+
       "_"+dd+mm+yyyy
-
   }
 
   accettaPaziente(): void{
-    let pzTmp: CreazionePaziente = {
+    let pzTmp: any = {
       nome: this.nome(),
       cognome: this.cognome(),
       dataNascita: this.dataNascitaParse(),
       codiceFiscale: this.codiceFiscale(),
       codiceColore: this.codiceColore(),
       stato: 'IN CARICO',
-      codice: this.calcolaCodicePZ()
+      codice: this.calcolaCodicePZ(),
+      diagnosi:this.diagnosi(),
+      trattamento:this.trattamento(),
+      note:this.note(),
+      fase:this.fase(),
+      infermiereID:15,
+      medicoID:10
     }
 
     this.#AFPHospitalAPI.accettaPaziente(pzTmp);
