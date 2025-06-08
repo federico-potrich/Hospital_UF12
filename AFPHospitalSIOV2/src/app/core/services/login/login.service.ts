@@ -35,25 +35,6 @@ export class LoginService {
     }
   }
 
-  #login(username: string, password : string): boolean {
-    const user = this.#fakeUsers.find(u => u.email === username && u.password === password);
-
-    if (user) {
-      this.#isLogged.set(true);
-
-      const now = new Date();
-      const formattedDate = this.#formatDate(now);
-
-      localStorage.setItem('LAST_SESSION', formattedDate);
-      localStorage.setItem('USER', user.email);
-
-      this.#router.navigate(['']);
-      return true;
-    } else {
-      this.#isLogged.set(false);
-      return false;
-    }
-  }
   async loginEmail(
         email: string,
         password: string

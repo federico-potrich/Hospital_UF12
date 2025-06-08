@@ -29,11 +29,6 @@ export class PazienteComponent {
     }
     optionsTmp: any[] = [
         {
-            nome: 'Trasferisci Reparto',
-            code: 'TR',
-            children: this.api.listaRep()
-        },
-        {
             nome: 'Trasferisci Ospedale',
             code: 'TR',
             children: this.api.listOspedali()
@@ -41,7 +36,16 @@ export class PazienteComponent {
         {
             nome: 'Dimetti',
             code: 'D'
-        }
+        },
+        {
+            nome: 'Dimetti -> Reparto',
+            code: 'TR',
+            children: this.api.listaRep()
+        },
+        {
+            nome: 'Dimetti💀',
+            code: 'D'
+        },
     ];
 
     selectedOptions: any;
@@ -120,7 +124,7 @@ export class PazienteComponent {
                     y = 20;
                 }
                 if (cc.fase == 'DIMMISSIONE') {
-                     y += 10;  // piccolo spazio extra dopo le note DIMISSIONE
+                    y += 10;  // piccolo spazio extra dopo le note DIMISSIONE
                     const nomeMedico = cc.medico;  // prendi il nome medico dinamicamente se puoi
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(12);
@@ -143,7 +147,6 @@ export class PazienteComponent {
 
     onChangeInput() {
         this.api.storiaPaziente(this.pz().codice)
-
     }
     validateInput(): boolean {
         if (!this.selectedOptions) return false;

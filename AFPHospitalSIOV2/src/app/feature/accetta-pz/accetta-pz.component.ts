@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class AccettaPzComponent {
   readonly #AFPHospitalAPI = inject(AFPHospitalAPIService);
-
+  readonly #routers = inject(Router)
   /**
    * -- ANAGRAFICA
    * - nome
@@ -67,12 +67,12 @@ export class AccettaPzComponent {
       trattamento:this.trattamento(),
       note:this.note(),
       fase:this.fase(),
-      infermiereID:15,
-      medicoID:10
+      infermiereID:1,
+      medicoID:1
     }
 
     this.#AFPHospitalAPI.accettaPaziente(pzTmp);
-    inject(Router).navigate([''])
+    this.#routers.navigate([''])
   }
 
   /**

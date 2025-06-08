@@ -132,7 +132,7 @@ export const accettaPz = async (event) => {
             // Codice fiscale già presente
             pzNewID = existing[0].id;
         } else {
-            // Inserisci nuovo record
+            
             const [pzCreation] = await connection.execute(`
                 INSERT INTO Anagrafica (nome, cognome, data_nascita, codice_fiscale)
                 VALUES (?, ?, ?, ?)
@@ -152,7 +152,7 @@ export const accettaPz = async (event) => {
         `, [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
         
         console.log("Dati per CartellaClinica:", {
-            paziente_id: pzNewID,
+            paziente_id: newPazient.insertId,
             medico_id: pzTmp.medicoID,
             infermiere_id: pzTmp.infermiereID,
             diagnosi: pzTmp.diagnosi,
@@ -162,8 +162,8 @@ export const accettaPz = async (event) => {
         });
 
         //da modificare body
-        await connection.execute(`
-            INSERT INTO CartellaClinica (paziente_id, medico_id, infermiere_id, diagnosi, trattamento, fase, note)
+        const [newCartella] = await connection.execute(`
+            INSERT INTO cartellaclinica (paziente_id, medico_id, infermiere_id, diagnosi, trattamento, fase, note)
             VALUES (?, ?, ?, ?, ?, ?, ?);
         `, [
             newPazient.insertId,      // <-- questo è l'ID corretto del paziente
@@ -174,6 +174,7 @@ export const accettaPz = async (event) => {
             pzTmp.fase,
             pzTmp.note
         ]);
+        console.log(newCartella)
 
 
         return createHttpResponceOK({
