@@ -58,7 +58,7 @@ export class RepartoComponent implements OnInit {
     this.api.getListaReparti()
     this.api.getListaOspedali()
   }
-  
+
   ngOnInit() {
     this.patient = this.api.listaPz().filter(pz => pz.id_reparto == this.reparto_id())
     this.mediciTurno = this.medici.filter(doc => doc.reparto_id == this.reparto_id())
@@ -69,5 +69,9 @@ export class RepartoComponent implements OnInit {
 
   getCountPazienti(colCode: string = 'BIANCO') {
     return this.pazientiProntoSoccorso.filter(pz => pz.codice_colore == colCode).length
+  }
+  refresh(){
+    console.log('ciao')
+    window.location.reload();
   }
 }

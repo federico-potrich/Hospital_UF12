@@ -1,4 +1,9 @@
 <div class="container">
+  @if(!reparto){
+    <h1>ERRORE</h1>
+    <button class="addPz" (click)="refresh()" >Ricarica la pagina</button>
+  }
+  @else{
     <h1 class="title {{reparto?.toLowerCase()}}">{{ reparto }}</h1>
     <div class="bottom">
         @if(reparto=="Pronto Soccorso"){
@@ -92,5 +97,5 @@
         }
 
     </div>
-
+  }
 </div>

@@ -17,6 +17,6 @@ export class HomepageComponent {
 
   constructor(){
     this.api.getListaPazienti()
-    
+
   }
 }
