@@ -11,7 +11,7 @@ import { AFPHospitalAPIService } from './core/services/afphospital-api.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { APSS_theme } from '../theme/APSS_theme';
-import { firebaseConfig } from './environment/environment';
+import { firebaseConfig } from './core/services/login/environment/environment';
 
 
 
