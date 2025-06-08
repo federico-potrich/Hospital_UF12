@@ -15,9 +15,7 @@ export class LoginService {
   readonly logged = computed(() => this.#isLogged());
 
   #fakeUsers = [
-    { email: 'admin@apss.tn.it', reparto_id: 7},
-    { email: 'user1', password: 'pass1' , reparto_id: 2},
-    { email: 'demo', password: 'demo123' , reparto_id: 7}
+    { email: 'admin@apss.tn.it', reparto_id: 7}
   ];
 
   constructor() {

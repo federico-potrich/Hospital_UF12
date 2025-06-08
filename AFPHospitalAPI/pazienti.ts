@@ -150,16 +150,6 @@ export const accettaPz = async (event) => {
                 ?, ?, ?
             );
         `, [pzNewID, pzTmp.codice, pzTmp.codiceColore, pzTmp.stato]);
-        
-        console.log("Dati per CartellaClinica:", {
-            paziente_id: newPazient.insertId,
-            medico_id: pzTmp.medicoID,
-            infermiere_id: pzTmp.infermiereID,
-            diagnosi: pzTmp.diagnosi,
-            trattamento: pzTmp.trattamento,
-            fase: pzTmp.fase,
-            note: pzTmp.note,
-        });
 
         //da modificare body
         const [newCartella] = await connection.execute(`
@@ -174,7 +164,6 @@ export const accettaPz = async (event) => {
             pzTmp.fase,
             pzTmp.note
         ]);
-        console.log(newCartella)
 
 
         return createHttpResponceOK({
