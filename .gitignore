@@ -137,6 +137,5 @@ dist
 
 
 .vscode
-lazy.cmd
 AFPHospitalSIOV2/src/app/environment/environment.ts
 AFPHospitalSIOV2/src/app/core/services/login/environment/environment.ts
