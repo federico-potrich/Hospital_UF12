@@ -8,7 +8,7 @@ cd environment
 
 echo Writing environment.ts...
 
-echo.  const firebaseConfig = { > environment.ts
+echo.   export const firebaseConfig = { > environment.ts
 echo.   apiKey: ^"AIzaSyACQ2ESzq0wBvByzFpRn23hJMRElUPPOwg^", >> environment.ts
 echo.   authDomain: ^"uf12hospital.firebaseapp.com^", >> environment.ts
 echo.   projectId: ^"uf12hospital^", >> environment.ts
